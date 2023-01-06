@@ -1,0 +1,222 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Mono:wght@700&display=swap");
+
+:root {
+  --primary-cyan: #26c0ab;
+  --very-dark-cyan: #00494d;
+  --dark-grayish-cyan: #5e7a7d;
+  --grayish-cyan: #7f9c9f;
+  --light-grayish-cyan: #c5e4e7;
+  --very-light-grayish-cyan: #f4fafa;
+  --white: #fff;
+
+  --font-family: "Space Mono", monospace;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: var(--font-family);
+}
+
+html {
+  font-size: 16px;
+}
+
+input,
+button {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+body {
+  background-color: var(--light-grayish-cyan);
+  margin: 0;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.text-light-gryish-cyan {
+  color: var(--light-grayish-cyan);
+}
+
+.text-gryish-cyan {
+  color: var(--grayish-cyan);
+}
+
+.text-white {
+  color: var(--white);
+}
+
+.bill {
+  display: flex;
+  align-items: center;
+}
+
+.bill img {
+  position: absolute;
+  margin-left: 1rem;
+}
+
+.bill input {
+  padding: 0.5rem 1rem;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.btn {
+  padding: 0.5rem 1.5rem;
+  background-color: var(--very-dark-cyan);
+  color: var(--white);
+  border-radius: 5px;
+  border: none;
+}
+
+.btn:hover {
+  background-color: var(--primary-cyan);
+  color: var(--very-dark-cyan);
+}
+
+h1 {
+  color: var(--very-dark-cyan);
+  letter-spacing: 4px;
+  font-size: 1.75rem;
+  margin: 0;
+  padding: 2rem 0;
+}
+
+input {
+  background-color: var(--very-light-grayish-cyan);
+  outline: none;
+  border: none;
+}
+
+main {
+  background-color: var(--white);
+  border-radius: 25px 25px 0 0;
+  padding: 2rem;
+  color: var(--dark-grayish-cyan);
+  display: flex;
+  flex-direction: column;
+}
+
+.tip {
+  display: grid;
+  grid-template-columns: repeat(2, 48%);
+  justify-content: space-between;
+}
+
+.tip button,
+.tip input {
+  margin: 0.25rem 0;
+}
+
+.tip button {
+  cursor: pointer;
+}
+
+.tip input {
+  padding: 0 1rem;
+}
+
+.tip-screen {
+  background-color: var(--very-dark-cyan);
+  padding: 2rem;
+  border-radius: 1rem;
+}
+
+.tip-screen .btn {
+    cursor: pointer;
+}
+
+.tip-screen h3 {
+  color: var(--primary-cyan);
+  font-size: 2rem;
+}
+
+.people {
+  display: flex;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.people input {
+  padding: 0.5rem 1rem;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.people img {
+  position: absolute;
+  margin-left: 1rem;
+}
+
+.tip-screen .btn {
+  background-color: var(--primary-cyan);
+  color: var(--very-dark-cyan);
+  width: 100%;
+}
+
+@media screen and (min-width: 1024px) {
+  main {
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    margin: 0 auto;
+    justify-content: space-between;
+  }
+
+  .tip-screen {
+    width: 48%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .tip-screen h3 {
+    margin: 1rem;
+  }
+
+  .calculator {
+    width: 48%;
+  }
+
+  .bill {
+    margin-bottom: 2rem ;
+  }
+
+  .bill img {
+    margin-left: 2rem ;
+  }
+
+
+ .tip {
+    grid-template-columns: repeat(3, 31%);
+    margin-bottom: 2rem;
+ } 
+
+}

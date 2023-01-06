@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+
+  <title>Frontend Mentor | Tip calculator app</title>
+
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  <style>
+    .attribution {
+      font-size: 11px;
+      text-align: center;
+    }
+
+    .attribution a {
+      color: hsl(228, 45%, 44%);
+    }
+  </style>
+  <link rel="stylesheet" href="style/index.css">
+</head>
+
+<body>
+
+  <h1 class="text-center">SPLI <br> TTER</h1>
+
+  <main>
+
+    <div class="calculator">
+      Bill
+      <div class="bill">
+        <img src="images/icon-dollar.svg" alt="Dollar Icon">
+        <input id="bill" class="text-right" type="text" placeholder="0">
+      </div>
+      Select Tip %
+      <div class="tip">
+        <button class="btn percent">5%</button>
+        <button class="btn percent">10%</button>
+        <button class="btn percent">15%</button>
+        <button class="btn percent">25%</button>
+        <button class="btn percent">50%</button>
+        <input class="text-right" type="text" placeholder="Custom">
+      </div>
+      Number of People
+      <div class="people">
+        <img src="images/icon-person.svg" alt="Person Icon">
+        <input id="number-people" class="text-right" type="text" placeholder="0">
+      </div>
+    </div>
+
+    <div class="tip-screen">
+      <div class="">
+        <div class="tip-child1 flex justify-between">
+          <div class="text">
+            <p class="text-light-gryish-cyan">Tip Amount</p>
+            <p class="text-gryish-cyan">/ person</p>
+          </div>
+          <h3 id="tip-amount">$0.00</h3>
+        </div>
+        <div class="tip-child2 flex justify-between">
+          <div class="text">
+            <p class="text-light-gryish-cyan">Total</p>
+            <p class="text-gryish-cyan">/ person</p>
+          </div>
+          <h3 id="total-amount">$0.00</h3>
+        </div>
+      </div>
+
+      <button class="btn">Reset</button>
+    </div>
+
+  </main>
+
+  <div class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
+    Coded by <a href="https://github.com/yunagosh7" rel="noopener" target="_blank">Juan Cruz Vila</a>.
+  </div>
+
+  <script src="js/index.js"></script>
+</body>
+
+</html>
