@@ -95,9 +95,14 @@ body {
   border-radius: 5px;
   border: none;
 }
+.btn.active {
+  background-color: var(--primary-cyan);
+  color: var(--very-dark-cyan);
+}
+
 
 .btn:hover {
-  background-color: var(--primary-cyan);
+  background-color: var(--light-grayish-cyan);
   color: var(--very-dark-cyan);
 }
 
@@ -179,6 +184,12 @@ main {
   background-color: var(--primary-cyan);
   color: var(--very-dark-cyan);
   width: 100%;
+}
+
+
+.tip-screen .btn:hover {
+  background-color: var(--light-grayish-cyan);
+  color: var(--very-dark-cyan);
 }
 
 @media screen and (min-width: 1024px) {

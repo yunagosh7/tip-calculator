@@ -1,13 +1,14 @@
 ((d) => {
   const $tipAmount = d.getElementById("tip-amount");
   const $totalAmount = d.getElementById("total-amount");
-  const $tipPercentage = d.getElementById("tip-amount");
   const $percentBtns = d.querySelectorAll(".percent");
-  const $selectedAmount = d.getElementById("selected-amount");
+  const $inputAmount = d.getElementById("input-amount");
   const $numberOfPeople = d.getElementById("number-people");
+  const $resetBtn = d.getElementById("reset-btn");
+  const $inputTip = d.getElementById("input-tip");
 
   class Calculator {
-    calculateTip(amount, tipPercentage, numberOfPeople = 1) {
+    calculateTip(amount, tipPercentage, numberOfPeople) {
       if (isNaN(parseFloat(tipPercentage))) {
         console.log("tipPercentage no es un numero");
         return;
@@ -20,6 +21,7 @@
         console.log("amount no es un numero");
         return;
       }
+      if (parseFloat(numberOfPeople) == 0) numberOfPeople = 1;
       return (amount * tipPercentage) / numberOfPeople;
     }
 
@@ -37,91 +39,114 @@
   }
 
   class Display {
-    constructor(
-      displayTip,
-      displayAmount,
-      numberOfPeople,
-      selectedAmount
-    ) {
+    constructor(displayTip, displayAmount, numberOfPeople, inputAmount) {
       this.displayAmount = displayAmount;
       this.displayTip = displayTip;
       this.tip = 0;
       this.amount = 0;
       this.numberOfPeople = numberOfPeople;
-      this.selectedTip = 0;
-      this.selectedAmount = selectedAmount;
+      this.inputAmount = inputAmount;
       this.calculator = new Calculator();
     }
+
+    calculate() {
+      if (
+        (this.tip ==
+          0 || isNaN(this.tip) || this.inputAmount.value == "" || this.numberOfPeople.value == "")
+      ) {
+        this.displayAmount.textContent = "$0.00";
+        this.displayTip.textContent = "$0.00";
+        return;
+      }
+      this.amount = this.calculator
+        .calculateAmount(
+          parseFloat(this.inputAmount.value),
+          parseFloat(this.numberOfPeople.value)
+        )
+        .toFixed(2);
+        console.log(typeof this.tip)
+      this.tip = this.calculator
+        .calculateTip(
+          parseFloat(this.inputAmount.value),
+          parseFloat(this.tip),
+          parseFloat(this.numberOfPeople.value)
+        )
+        .toFixed(2);
+      this.printValues();
+    }
+
     printValues() {
       this.displayTip.textContent = `$${this.tip}`;
       this.displayAmount.textContent = `$${this.amount}`;
     }
 
     reset() {
-      this.displayAmount = "$0.00";
-      this.displayTip = "$0.00";
+      this.displayAmount.textContent = "$0.00";
+      this.displayTip.textContent = "$0.00";
       this.tip = 0;
-      this.numberOfPeople = 0;
+      this.numberOfPeople.value = "";
       this.amount = 0;
-      this.selectedAmount = "";
-      this.numberOfPeople = "";
-      this.selectedTip = "";
-    }
-
-    calculate() {
-      if (
-        this.selectedTip.value == "" ||
-        this.selectedAmount == "" ||
-        this.numberOfPeople.value == ""
-      ) {
-        this.displayAmount.textContent = "$0.00";
-        this.displayTip.textContent = "$0.00";
-        return;
+      this.inputAmount.value = "";
+      $inputTip.value = "";
+      for (let i = 0; i < $percentBtns.length; i++) {
+      this.numberOfPeople.value = "";
+        if($percentBtns[i].classList.contains("active")) $percentBtns[i].classList.remove("active")
+        
       }
-      this.amount = this.calculator.calculateAmount(
-        this.selectedAmount,
-        this.numberOfPeople
-      ).toFixed(2);
-      this.tip = this.calculator.calculateTip(
-        this.selectedAmount,
-        this.selectedTip,
-        this.numberOfPeople
-      ).toFixed(2);
-      this.printValues()
+      
     }
   }
-
 
   const display = new Display(
     $tipAmount,
     $totalAmount,
     $numberOfPeople,
-    $selectedAmount
+    $inputAmount
   );
-
 
   for (let i = 0; i < $percentBtns.length; i++) {
     $percentBtns[i].addEventListener("click", () => {
       let perc = $percentBtns[i].textContent;
-      display.selectedTip = parseInt(perc) / 100;
-      display.calculate()
+      display.tip = parseInt(perc) / 100;
+      console.log(display.tip)
+      for(let j = 0; j < $percentBtns.length; j++) {
+        if($percentBtns[j].classList.contains("active"))$percentBtns[j].classList.remove("active") 
+      }
+      $inputTip.value = ""
+      $percentBtns[i].classList.add("active");
+      display.calculate();
     });
   }
 
-
-  //* Usar este evento como onChange
-  $selectedAmount.addEventListener("keyup", (e) => {
-    if (isNaN(parseFloat(e.target.value))) {
-      console.log("NAN");
-      return;
+  $inputTip.addEventListener("input", (e) => {
+    if(e.target.value.trim() != ""){
+      display.tip = parseInt(e.target.value) / 100;
     }
-    display.selectedAmount = parseFloat(e.target.value);
-    display.calculate()
+    else {display.tip = 1}
+    for(let i = 0; i < $percentBtns.length; i++) {
+      if($percentBtns[i].classList.contains("active")) {
+        $percentBtns[i].classList.remove("active")
+      }
+    }
+
+      display.calculate();
+    });
+
+  $resetBtn.addEventListener("click", () => {
+    display.reset();
   });
 
-  $numberOfPeople.addEventListener("keyup", (e) => {
+  //* Usar este evento como onChange
+  $inputAmount.addEventListener("input", () => {
+    if (isNaN(parseFloat(display.inputAmount.value))) {
+      return;
+    }
+    //! aca no es el problema
+    display.calculate();
+  });
+
+  $numberOfPeople.addEventListener("input", (e) => {
     if (isNaN(parseFloat(e.target.value))) console.log("NaN");
-    display.numberOfPeople = parseInt(e.target.value)
-    display.calculate()
+    display.calculate();
   });
 })(document);
