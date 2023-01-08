@@ -8,6 +8,7 @@
   --light-grayish-cyan: #c5e4e7;
   --very-light-grayish-cyan: #f4fafa;
   --white: #fff;
+  --neutral-red: rgb(234, 116, 93); 
 
   --font-family: "Space Mono", monospace;
 }
@@ -24,6 +25,7 @@ html {
 input,
 button {
   font-size: 1.5rem;
+  box-sizing: border-box;
   font-weight: bold;
 }
 
@@ -34,6 +36,10 @@ body {
 
 .text-center {
   text-align: center;
+}
+
+.text-danger {
+  color: var(--neutral-red);
 }
 
 .text-right {
@@ -117,7 +123,7 @@ h1 {
 input {
   background-color: var(--very-light-grayish-cyan);
   outline: none;
-  border: none;
+  border: 2px solid transparent;
 }
 
 main {
@@ -128,6 +134,8 @@ main {
   display: flex;
   flex-direction: column;
 }
+
+
 
 .tip {
   display: grid;

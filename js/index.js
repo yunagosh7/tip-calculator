@@ -6,34 +6,16 @@
   const $numberOfPeople = d.getElementById("number-people");
   const $resetBtn = d.getElementById("reset-btn");
   const $inputTip = d.getElementById("input-tip");
+  const $numberOfPeopleLabel = d.getElementById("number-people-label");
+  const $inputAmountLabel = d.getElementById("input-amount-label");
+  const $tipLabel = d.getElementById("tip-label");
 
   class Calculator {
     calculateTip(amount, tipPercentage, numberOfPeople) {
-      if (isNaN(parseFloat(tipPercentage))) {
-        console.log("tipPercentage no es un numero");
-        return;
-      }
-      if (isNaN(parseFloat(numberOfPeople))) {
-        console.log("numberOfPeople no es un numero");
-        return;
-      }
-      if (isNaN(parseFloat(amount))) {
-        console.log("amount no es un numero");
-        return;
-      }
-      if (parseFloat(numberOfPeople) == 0) numberOfPeople = 1;
       return (amount * tipPercentage) / numberOfPeople;
     }
 
     calculateAmount(totalAmount, numberOfPeople) {
-      if (isNaN(parseFloat(totalAmount))) {
-        console.log("totalAMount no es un numero");
-        return;
-      }
-      if (isNaN(parseFloat(numberOfPeople))) {
-        console.log("numberOfPeople no es un numero");
-        return;
-      }
       return totalAmount / numberOfPeople;
     }
   }
@@ -42,7 +24,8 @@
     constructor(displayTip, displayAmount, numberOfPeople, inputAmount) {
       this.displayAmount = displayAmount;
       this.displayTip = displayTip;
-      this.tip = 0;
+      this.tipPercentage = 0;
+      this.tipValue = 0;
       this.amount = 0;
       this.numberOfPeople = numberOfPeople;
       this.inputAmount = inputAmount;
@@ -50,10 +33,7 @@
     }
 
     calculate() {
-      if (
-        (this.tip ==
-          0 || isNaN(this.tip) || this.inputAmount.value == "" || this.numberOfPeople.value == "")
-      ) {
+      if (this.tipPercentage == 0 || isNaN(this.tipPercentage) || this.inputAmount.value == "" || this.numberOfPeople.value == "0" || isNaN(parseInt(this.numberOfPeople.value)) ) {
         this.displayAmount.textContent = "$0.00";
         this.displayTip.textContent = "$0.00";
         return;
@@ -64,11 +44,11 @@
           parseFloat(this.numberOfPeople.value)
         )
         .toFixed(2);
-        console.log(typeof this.tip)
-      this.tip = this.calculator
+
+      this.tipValue = this.calculator
         .calculateTip(
           parseFloat(this.inputAmount.value),
-          parseFloat(this.tip),
+          parseFloat(this.tipPercentage),
           parseFloat(this.numberOfPeople.value)
         )
         .toFixed(2);
@@ -76,24 +56,24 @@
     }
 
     printValues() {
-      this.displayTip.textContent = `$${this.tip}`;
+      this.displayTip.textContent = `$${this.tipValue}`;
       this.displayAmount.textContent = `$${this.amount}`;
     }
 
     reset() {
       this.displayAmount.textContent = "$0.00";
       this.displayTip.textContent = "$0.00";
-      this.tip = 0;
+      this.tipValue = 0;
+      this.tipPercentage = 0;
       this.numberOfPeople.value = "";
       this.amount = 0;
       this.inputAmount.value = "";
       $inputTip.value = "";
       for (let i = 0; i < $percentBtns.length; i++) {
-      this.numberOfPeople.value = "";
-        if($percentBtns[i].classList.contains("active")) $percentBtns[i].classList.remove("active")
-        
+        this.numberOfPeople.value = "";
+        if ($percentBtns[i].classList.contains("active"))
+          $percentBtns[i].classList.remove("active");
       }
-      
     }
   }
 
@@ -106,31 +86,36 @@
 
   for (let i = 0; i < $percentBtns.length; i++) {
     $percentBtns[i].addEventListener("click", () => {
+      $tipLabel.textContent = "";
+      $inputTip.style.borderColor = "transparent";
       let perc = $percentBtns[i].textContent;
-      display.tip = parseInt(perc) / 100;
-      console.log(display.tip)
-      for(let j = 0; j < $percentBtns.length; j++) {
-        if($percentBtns[j].classList.contains("active"))$percentBtns[j].classList.remove("active") 
+      display.tipPercentage = parseInt(perc) / 100;
+      for (let j = 0; j < $percentBtns.length; j++) {
+        if ($percentBtns[j].classList.contains("active"))
+          $percentBtns[j].classList.remove("active");
       }
-      $inputTip.value = ""
+      $inputTip.value = "";
       $percentBtns[i].classList.add("active");
       display.calculate();
     });
   }
 
   $inputTip.addEventListener("input", (e) => {
-    if(e.target.value.trim() != ""){
-      display.tip = parseInt(e.target.value) / 100;
+    if (isNaN(parseFloat(e.target.value)) || parseFloat(e.target.value) == 0) {
+      $tipLabel.textContent = "Please enter valid values";
+      $inputTip.style.border = "2px solid #e84";
+      return;
     }
-    else {display.tip = 1}
-    for(let i = 0; i < $percentBtns.length; i++) {
-      if($percentBtns[i].classList.contains("active")) {
-        $percentBtns[i].classList.remove("active")
+    display.tipPercentage = parseInt(e.target.value) / 100;
+    $tipLabel.textContent = "";
+    $inputTip.style.borderColor = "transparent";
+    for (let i = 0; i < $percentBtns.length; i++) {
+      if ($percentBtns[i].classList.contains("active")) {
+        $percentBtns[i].classList.remove("active");
       }
     }
-
-      display.calculate();
-    });
+    display.calculate();
+  });
 
   $resetBtn.addEventListener("click", () => {
     display.reset();
@@ -138,15 +123,28 @@
 
   //* Usar este evento como onChange
   $inputAmount.addEventListener("input", () => {
-    if (isNaN(parseFloat(display.inputAmount.value))) {
+    if (
+      isNaN(parseFloat(display.inputAmount.value)) ||
+      parseFloat(display.inputAmount.value) == 0
+    ) {
+      display.inputAmount.style.border = "2px solid #e84";
+      $inputAmountLabel.textContent = "Please enter a valid value";
       return;
     }
+    display.inputAmount.style.borderColor = "transparent";
+    $inputAmountLabel.textContent = "";
     //! aca no es el problema
     display.calculate();
   });
 
   $numberOfPeople.addEventListener("input", (e) => {
-    if (isNaN(parseFloat(e.target.value))) console.log("NaN");
+    if (isNaN(parseFloat(e.target.value)) || parseFloat(e.target.value) == 0) {
+      $numberOfPeople.style.border = "2px solid #e84";
+      $numberOfPeopleLabel.textContent = "Please enter a valid value";
+      return;
+    }
+    $numberOfPeopleLabel.textContent = "";
+    $numberOfPeople.style.borderColor = "transparent";
     display.calculate();
   });
 })(document);

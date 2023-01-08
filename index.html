@@ -31,12 +31,21 @@
   <main>
 
     <div class="calculator">
-      Bill
+      <div class="flex justify-between">
+
+        Bill
+        <span id="input-amount-label" class="text-danger"></span>
+      </div>
       <div class="bill">
         <img src="images/icon-dollar.svg" alt="Dollar Icon">
         <input id="input-amount" class="text-right" type="text" placeholder="0">
       </div>
-      Select Tip %
+
+      <div class="flex justify-between">
+        
+        Select Tip %
+        <span id="tip-label" class="text-danger"></span>
+      </div>
       <div class="tip">
         <button class="btn percent">5%</button>
         <button class="btn percent">10%</button>
@@ -45,7 +54,12 @@
         <button class="btn percent">50%</button>
         <input id="input-tip" class="text-right" type="text" placeholder="Custom">
       </div>
-      Number of People
+      
+      <div class="flex justify-between">
+
+        Number of People
+        <span id="number-people-label" class="text-danger"></span>
+      </div>
       <div class="people">
         <img src="images/icon-person.svg" alt="Person Icon">
         <input id="number-people" class="text-right" type="text" placeholder="0">
